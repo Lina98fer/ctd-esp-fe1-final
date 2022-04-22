@@ -1,4 +1,9 @@
 import './boton-favorito.css';
+import { FC, useEffect } from "react";
+import { IRootState } from "../../store/store";
+import Character from "../../types/character.types";
+import { addFavorite, removeFavorite } from "../../actions/favorites.actions";
+import { connect, ConnectedProps } from "react-redux";
 /**
  * Boton que indica si un elemento es favorito o no, y da la posibilidad de marcarlo/desmarcarlo
  * 
