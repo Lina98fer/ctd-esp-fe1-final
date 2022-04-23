@@ -10,7 +10,7 @@ interface getCharactersAction extends Action {
 
 interface getCharactersSuccessAction extends Action {
   type: "GET_CHARACTERS_SUCCESS";
-  characters: Personaje[];
+  personajes: Personaje[];
   pageInfo: paginaInformacion;
 }
 
@@ -29,11 +29,11 @@ const getCharacters: ActionCreator<getCharactersAction> = (
 };
 
 const fetchCharactersSuccess: ActionCreator<FetchCharactersSuccessAction> = (
-  characters: Personaje[]
+  personajes: Personaje[]
 ) => {
   return {
     type: "FETCH_CHARACTERS_SUCCESS",
-    characters: characters
+    personajes: personajes
   };
 };
 
@@ -46,13 +46,13 @@ const fetchCharactersFailure: ActionCreator<FetchCharactersFailedAction> = (
   };
 };
 
-export type CharacterActions =
+export type PersonajeAccion =
   | ReturnType<typeof fetchCharactersPending>
   | ReturnType<typeof fetchCharactersSuccess>
   | ReturnType<typeof fetchCharactersFailure>;
 
 interface FetchCharactersThunkAction
-  extends ThunkAction<void, IRootState, unknown, CharacterActions> {}
+  extends ThunkAction<void, IRootState, unknown, PersonajeAccion> {}
 
 export const fetchCharactersThunk = (
   query: string

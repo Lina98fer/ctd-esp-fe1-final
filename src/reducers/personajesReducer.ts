@@ -1,45 +1,52 @@
 import { Reducer } from "@reduxjs/toolkit";
-import { CharacterActions } from "../acciones/personajeAccion";
+import { PersonajeAccion } from "../acciones/personajeAccion";
+import paginaInformacion from "../types/paginaInformacion.types";
 import Personaje from "../types/personaje.types";
 
 export interface PersonajesState {
-  status: "IDLE" | "LOADING" | "COMPLETED" | "FAILED";
-  characters: Personaje[];
+  estado: "IDLE" | "LOADING" | "COMPLETED" | "FAILED";
+  personajes: Personaje[];
+  query: string;
+  pageInfo: paginaInformacion;
   errorMessage: string | null;
 }
 
-const initialState: PersonajesState = {
-  status: "IDLE",
-  characters: [],
+const estadoInicial: PersonajesState = {
+  estado: "IDLE",
+  personajes: [],
+  query: "",
+  pageInfo: { count: 0, pages: 0, next: "", prev: "" },
   errorMessage: null
 };
 
-const personajesReducer: Reducer<PersonajesState, CharacterActions> = (
-  state = initialState,
+const personajesReducer: Reducer<PersonajesState, PersonajeAccion> = (
+  state = estadoInicial,
   action
 ): PersonajesState => {
   switch (action.type) {
-    case "FETCH_CHARACTERS_PENDING":
+    case "GET_CHARACTERS":
       return {
         ...state,
-        status: "LOADING",
-        characters: [],
+        estado: "LOADING",
+        personajes: [],
+        query: action.query,
         errorMessage: null
       };
-    case "FETCH_CHARACTERS_SUCCESS":
+    case "GET_CHARACTERS_SUCCESS":
       return {
         ...state,
-        status: "COMPLETED",
-        characters: action.characters
+        estado: "COMPLETED",
+        personajes: action.personajes,
+        pageInfo: action.paginaInformacion,
       };
-    case "FETCH_CHARACTERS_FAILED":
+    case "GET_CHARACTERS_FAILED":
       return {
         ...state,
-        status: "FAILED",
+        estado: "FAILED",
         errorMessage: action.error
       };
     default:
-      return state;
+      return {...state};
   }
 };
 export default personajesReducer;
