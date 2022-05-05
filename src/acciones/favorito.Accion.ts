@@ -30,7 +30,7 @@ interface FavoriteAction extends Action {
     type: "REMOVE_ALL_FAVORITE",
   });
   
-  export type FavoriteActions =
+  export type FavoritoAccion =
     | ReturnType<typeof agregarFavorito>
     | ReturnType<typeof removerFavorito>
     | ReturnType<typeof removeAllFavorite>;

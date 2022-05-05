@@ -2,11 +2,11 @@ import './boton-favorito.css';
 import { FC, useEffect } from "react";
 import { IRootState } from '../../store/strore';
 import Personaje from '../../types/personaje.types';
-import { agregarFavorito,removerFavorito } from '../../acciones/favoritoAccion';
+import { agregarFavorito,removerFavorito } from '../../acciones/favorito.Accion';
 import { connect, ConnectedProps } from "react-redux";
 
 const mapState = (estado: IRootState) => ({
-    favoritos: estado.favorites.favorites,
+    favoritos: estado.favoritos.favoritos,
   });
   
   const mapDispatch = {
@@ -17,7 +17,7 @@ const mapState = (estado: IRootState) => ({
   const connector = connect(mapState, mapDispatch);
   type FavoritosProps = ConnectedProps<typeof connector>;
   
-  const FavoriteButton: FC<
+  const BotonFavorito: FC<
     {
       personaje: Personaje;
       esFavorito: boolean;
@@ -45,10 +45,12 @@ const mapState = (estado: IRootState) => ({
     }, [favoritos]);
   
     return (
-      <button className="boton-favorito" onClick={updateFavorites} type="button">
+      <button className="boton-favorito" 
+      onClick={updateFavorites} 
+      type="button">
         <img src={src} alt={"favorito"} />
       </button>
     );
   };
   
-  export default connector(FavoriteButton);
+  export default connector(BotonFavorito);
